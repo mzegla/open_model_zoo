@@ -245,9 +245,9 @@ def main():
         model_adapter = OpenvinoAdapter(create_core(), args.model, device=args.device, plugin_config=plugin_config,
                                         max_num_requests=args.num_infer_requests)
     elif args.adapter == 'remote':
-        log.info('Reading model {}'.format(args.model))
-        serving_config = {"address": "localhost", "port": 9000}
-        model_adapter = RemoteAdapter(args.model, serving_config)
+        log.info('Connecting to remote model: {}'.format(args.model))
+        service_url, model_name, model_version = RemoteAdapter.parse_model_arg(args.model)
+        model_adapter = RemoteAdapter(service_url, model_name, model_version)
 
     model = get_model(model_adapter, args)
     model.set_inputs_preprocessing(args.reverse_input_channels, args.mean_values, args.scale_values)
