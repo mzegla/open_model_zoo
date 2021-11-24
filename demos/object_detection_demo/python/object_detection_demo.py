@@ -246,8 +246,7 @@ def main():
                                         max_num_requests=args.num_infer_requests)
     elif args.adapter == 'remote':
         log.info('Connecting to remote model: {}'.format(args.model))
-        service_url, model_name, model_version = RemoteAdapter.parse_model_arg(args.model)
-        model_adapter = RemoteAdapter(service_url, model_name, model_version)
+        model_adapter = RemoteAdapter(args.model)
 
     model = get_model(model_adapter, args)
     model.set_inputs_preprocessing(args.reverse_input_channels, args.mean_values, args.scale_values)
