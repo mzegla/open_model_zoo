@@ -58,7 +58,12 @@ class OpenvinoAdapter(ModelAdapter):
 
         self.model_from_buffer = isinstance(model_path, bytes) and isinstance(weights_path, bytes)
         log.info('Reading model {}'.format('from buffer' if self.model_from_buffer else model_path))
-        weights = weights_path if self.model_from_buffer else ''
+
+        if self.model_from_buffer or (weights_path is not None and type(weights_path) is str):
+            weights = weights_path
+        else:
+            weights = ""
+
         self.model = core.read_model(model_path, weights)
 
     def load_model(self):
