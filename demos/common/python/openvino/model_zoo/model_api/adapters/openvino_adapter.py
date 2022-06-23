@@ -45,6 +45,7 @@ class OpenvinoAdapter(ModelAdapter):
     def __init__(self, core, model_path, weights_path=None, model_parameters = {}, device='CPU', plugin_config=None, max_num_requests=0):
         self.core = core
         self.model_path = model_path
+        self.weights_path = weights_path
         self.device = device
         self.plugin_config = plugin_config
         self.max_num_requests = max_num_requests
